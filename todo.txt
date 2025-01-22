@@ -1,0 +1,3 @@
+- Token deployer with payouts of revenue.
+- Define what ideal ERP would do.
+- Scripts to get data

@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-// This specifies the license under which the contract is released. Here, it's not licensed.
 pragma solidity ^0.8.28;
-// Defines the Solidity version to use, ensuring compatibility and feature availability.
 
 contract ProductManager {
     // Defines a structure for a Product with fields for id, name, quantity, and price.
@@ -14,6 +12,7 @@ contract ProductManager {
 
     // Mapping to store products where the key is the product ID and the value is the Product struct.
     mapping(uint => Product) public products;
+    mapping(uint => address) public productOwners;
     // Counter to keep track of the number of products added, used for validation or counting.
     uint public productCounter;
 
@@ -40,6 +39,34 @@ contract ProductManager {
         emit ProductAdded(_id, _name, _quantity, _price);
     }
 
+    // Function to transfer product ownership during a sale
+    function transferProduct(uint _productId, uint _quantity, address _newOwner) public {
+        // Check if the product exists
+        require(products[_productId].id != 0, "Product does not exist");
+        
+        // Check if there's enough stock for the purchase
+        require(products[_productId].quantity >= _quantity, "Insufficient stock available");
+
+        // If this is the first time the product is being sold or if it's being split
+        if (productOwners[_productId] == address(0) || _quantity < products[_productId].quantity) {
+            // Partial sale or first sale scenario
+            // Reduce quantity in stock
+            products[_productId].quantity -= _quantity;
+            
+            // If selling all remaining stock, update ownership
+            if (products[_productId].quantity == 0) {
+                productOwners[_productId] = _newOwner;
+            }
+        } else {
+            // If selling the entire product at once (no split)
+            productOwners[_productId] = _newOwner;
+            products[_productId].quantity = 0; // Make sure all stock is sold
+        }
+        
+        // If you want to keep track of who owns what, you might want to extend this further
+        // For simplicity, we're just updating the owner for the product ID
+    }
+    
     // Function to remove an existing product from the contract.
     function removeProduct(uint _id) public {
         // Check if the product exists before attempting to remove it.

@@ -112,6 +112,30 @@ Let's take another look at the balance sheet
 |:------------|:------------:|:------------|
 | Equity | $200,000 | 10% paid out to holders of $RUSS token.
 
+```
+    function claim() public {
+        uint256 totalSupply = token.totalSupply();
+        require(totalSupply > 0, "Token has no supply");
+
+        uint256 contractBalance = address(this).balance;
+        require(contractBalance > 0, "No funds to claim");
+
+        uint256 userBalance = token.balanceOf(msg.sender);
+        require(userBalance > 0, "You do not hold any tokens");
+
+        // Calculate the share of the user based on their token holding
+        uint256 share = (contractBalance * userBalance) / totalSupply;
+        
+        // Ensure the share calculation doesn't result in 0 due to rounding or very small balances
+        require(share > 0, "Your share is too small to claim");
+
+        // Transfer the calculated share to the user
+        payable(msg.sender).transfer(share);
+        
+        emit Claimed(msg.sender, share);
+    }
+```
+
 # Secondary Markets for business lines
 Now let's look at if we applied the same logic to a company like Starbucks. Let's move one of their small production cycles on-chain, for a new type of pastry that they going to start to offer. What if we could long or short the revenue from the system. This would create a sub-market, that could drive further revenue.
 
