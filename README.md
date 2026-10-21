@@ -1,6 +1,6 @@
 # Supply Chain with Token incentive
 
-## Thesis - Tokenization == Market Efficiency
+## Tokenization to create an efficient market
 With the current regulatory environment, there seems to be no limit as to what token, and what actions we can take on-chain-- but there seems to only be value deriven from memes and ai agent hype. There is no real use case that has driven the asset values of tokens and the crypto space up, it's only greater fools theory driving growth. There's no real 'gdp' effect coming from the space.
 
 Payments are backed into blockchains, therefore stablecoins usage will increase, as people look for liquidity after this pump cycle (people selling their meme coins). From these profits, new economic activity will spark for payments to occur on-chain for goods and services.
