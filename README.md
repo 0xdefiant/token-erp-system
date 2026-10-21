@@ -1,5 +1,3 @@
-# Supply Chain with Token incentive
-
 ## Tokenization to create an efficient market
 With the current regulatory environment, there seems to be no limit as to what token, and what actions we can take on-chain-- but there seems to only be value deriven from memes and ai agent hype. There is no real use case that has driven the asset values of tokens and the crypto space up, it's only greater fools theory driving growth. There's no real 'gdp' effect coming from the space.
 
